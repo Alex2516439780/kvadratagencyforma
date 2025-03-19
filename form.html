@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logotip yaratish bo'yicha brif</title>
+    <link rel="stylesheet" href="form.css">
+    <link rel="icon" type="image/png" href="image/icons8-квадрат-50.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js" defer></script>
+    <script src="script.js" defer></script>
+
+
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <!-- <source src="image/5818973-uhd_3840_2160_24fps.mp4" type="video/mp4"> -->
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <h1>Logotip yaratish bo'yicha brif</h1>
+        <form id="briefForm">
+            <!-- 1. Loyiha haqida umumiy malumotlar -->
+            <section class="section-block">
+                <h2 class="question-label">1. Loyiha haqida umumiy malumotlar</h2>
+                <div class="form-group">
+                    <label for="brand-name" class="question-label">1.1 Brand nomi <span class="required">*</span></label>
+                    <input type="text" id="brand-name" name="brand-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="full-name" class="question-label">1.2 Ismingiz <span class="required">*</span></label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label class="question-label"class="question-label">1.3 Biznesdagi o'rningiz (lavozim) <span class="required">*</span></label>
+                    <div class="checkbox-group" data-selection="single">
+                        <label><input type="checkbox" name="position" value="Direktor"><span class="custom-checkbox"></span> Direktor</label>
+                        <label><input type="checkbox" name="position" value="Marketing"><span class="custom-checkbox"></span> Marketing</label>
+                        <label><input type="checkbox" name="position" value="Brand-menejeri"><span class="custom-checkbox"></span> Brand-menejeri</label>
+                        <label><input type="checkbox" name="position" value="Sotuv bo'limi rahbari"><span class="custom-checkbox"></span> Sotuv bo'limi rahbari</label>
+                        <label><input type="checkbox" name="position" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
+                        <input type="text" class="other-input" name="position-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="question-label">1.4 Aloqa uchun telefon raqamingiz <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="question-label">1.5 Kompaniya manzili</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="website" class="question-label">1.6 Veb-sayt va ijtimoiy tarmoq profillari <span class="required">*</span></label>
+                    <textarea id="website" name="website" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ad-materials" class="question-label">1.7 Reklama materiallari (flyerlar, bannerlar va boshqalar) uchun malumotlar</label>
+                    <textarea id="ad-materials" name="ad-materials"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="question-label">1.8 Yangi logotip dizaynni yaratish kerakmi, yoki mavjud logotipni yangilash lozimmi? <span class="required">*</span></label>
+                    <div class="checkbox-group" data-selection="single">
+                        <label><input type="checkbox" name="logo-type" value="Yangi logotip ishlab chiqish"><span class="custom-checkbox"></span> Yangi logotip ishlab chiqish</label>
+                        <label><input type="checkbox" name="logo-type" value="Mavjud logotipni yangilash"><span class="custom-checkbox"></span> Mavjud logotipni yangilash</label>
+                        <label><input type="checkbox" name="logo-type" value="Logotipni qayta ishlash"><span class="custom-checkbox"></span> Logotipni qayta ishlash</label>
+                        <label><input type="checkbox" name="logo-type" value="Logotipni brandga moslashtirish"><span class="custom-checkbox"></span> Logotipni brandga moslashtirish</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Brand haqida -->
+            <section class="section-block">
+                <h2>2. Brand haqida</h2>
+                <div class="form-group">
+                    <label for="activity" class="question-label">2.1 Brandingiz qanday faoliyat bilan shug'ullanadi? <span class="required">*</span></label>
+                    <textarea id="activity" name="activity" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="question-label">2.2 Brandingning asosiy qadriyatlari va falsafasi <span class="required">*</span></label>
+                    <div class="checkbox-group" data-selection="double">
+                        <label><input type="checkbox" name="values" value="Sifat, ishonchlilik, innovatsiya"><span class="custom-checkbox"></span> Sifat, ishonchlilik, innovatsiya</label>
+                        <label><input type="checkbox" name="values" value="An'analar, madaniyat, ijodkorlik"><span class="custom-checkbox"></span> An'analar, madaniyat, ijodkorlik</label>
+                        <label><input type="checkbox" name="values" value="Ekologik tozalik, tabiiylik, sog'lom turmush tarzi"><span class="custom-checkbox"></span> Ekologik tozalik, tabiiylik, sog'lom turmush tarzi</label>
+                        <label><input type="checkbox" name="values" value="Texnologik taraqqiyot, samaradorlik, qulaylik"><span class="custom-checkbox"></span> Texnologik taraqqiyot, samaradorlik, qulaylik</label>
+                        <label><input type="checkbox" name="values" value="Mijozlarga e'tibor, xizmat sifati, moslashuvchanlik"><span class="custom-checkbox"></span> Mijozlarga e'tibor, xizmat sifati, moslashuvchanlik</label>
+                        <label><input type="checkbox" name="values" value="Ijtimoiy mas'uliyat, barqaror rivojlanish, etika"><span class="custom-checkbox"></span> Ijtimoiy mas'uliyat, barqaror rivojlanish, etika</label>
+                        <label><input type="checkbox" name="values" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
+                        <input type="text" class="other-input" name="values-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="question-label">2.3 Brand qanday xarakterga ega bo'lishi kerak? <span class="required">*</span></label>
+                    <div class="checkbox-group" data-selection="multiple">
+                        <label><input type="checkbox" name="character" value="Jiddiy va ishonchli"><span class="custom-checkbox"></span> Jiddiy va ishonchli</label>
+                        <label><input type="checkbox" name="character" value="Zamonaviy"><span class="custom-checkbox"></span> Zamonaviy</label>
+                        <label><input type="checkbox" name="character" value="Hashamatli"><span class="custom-checkbox"></span> Hashamatli</label>
+                        <label><input type="checkbox" name="character" value="Oddiy va chunarli"><span class="custom-checkbox"></span> Oddiy va Tushunarli</label>
+
+                        <label><input type="checkbox" name="character" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
+                        <input type="text" class="other-input" name="character-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Logotip bo'yicha afzalliklar -->
+            <section class="section-block">
+                <h2>3. Logotip bo'yicha afzalliklar</h2>
+
+
+                <div class="form-group">
+                    <label class="question-label">3.1 Logotip qaysi ranglarda bo'lishi kerak? <br>(2 yoki 3 ta rangni tanlang)<span class="required">*</span></label>
+                    <div class="color-picker" data-selection="color-range">
+                        <!-- Колонна 1 -->
+                        <!-- Колонна 1 -->
+<label class="color-option" style="background-color: #FDEAEB;"><input type="checkbox" name="colors" value="#FDEAEB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FCE4EC;"><input type="checkbox" name="colors" value="#FCE4EC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F3E5F5;"><input type="checkbox" name="colors" value="#F3E5F5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F3E5F5;"><input type="checkbox" name="colors" value="#F3E5F5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E6ECF4;"><input type="checkbox" name="colors" value="#E6ECF4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E2F5FD;"><input type="checkbox" name="colors" value="#E2F5FD"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E2F5FD;"><input type="checkbox" name="colors" value="#E2F5FD"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E1F4F9;"><input type="checkbox" name="colors" value="#E1F4F9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E0F2F1;"><input type="checkbox" name="colors" value="#E0F2F1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E8F5E9;"><input type="checkbox" name="colors" value="#E8F5E9"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 2 -->
+<label class="color-option" style="background-color: #F1F8E9;"><input type="checkbox" name="colors" value="#F1F8E9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F9FBE7;"><input type="checkbox" name="colors" value="#F9FBE7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFFDE7;"><input type="checkbox" name="colors" value="#FFFDE7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFF6E1;"><input type="checkbox" name="colors" value="#FFF6E1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFF6E1;"><input type="checkbox" name="colors" value="#FFF6E1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FEEFE5;"><input type="checkbox" name="colors" value="#FEEFE5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EFEBE9;"><input type="checkbox" name="colors" value="#EFEBE9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FAFAFA;"><input type="checkbox" name="colors" value="#FAFAFA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EDEFF0;"><input type="checkbox" name="colors" value="#EDEFF0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFCDD2;"><input type="checkbox" name="colors" value="#FFCDD2"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 3 -->
+<label class="color-option" style="background-color: #F8BBD0;"><input type="checkbox" name="colors" value="#F8BBD0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E1BEE7;"><input type="checkbox" name="colors" value="#E1BEE7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D1C4E9;"><input type="checkbox" name="colors" value="#D1C4E9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C5CAE9;"><input type="checkbox" name="colors" value="#C5CAE9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #BBDEFB;"><input type="checkbox" name="colors" value="#BBDEFB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B3E5FC;"><input type="checkbox" name="colors" value="#B3E5FC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B2EBF2;"><input type="checkbox" name="colors" value="#B2EBF2"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B2DFDB;"><input type="checkbox" name="colors" value="#B2DFDB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C8E6C9;"><input type="checkbox" name="colors" value="#C8E6C9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #DCEDC8;"><input type="checkbox" name="colors" value="#DCEDC8"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 4 -->
+<label class="color-option" style="background-color: #F0F4C3;"><input type="checkbox" name="colors" value="#F0F4C3"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFF9C4;"><input type="checkbox" name="colors" value="#FFF9C4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFECB3;"><input type="checkbox" name="colors" value="#FFECB3"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFE0B2;"><input type="checkbox" name="colors" value="#FFE0B2"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFCCBC;"><input type="checkbox" name="colors" value="#FFCCBC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D7CCC8;"><input type="checkbox" name="colors" value="#D7CCC8"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F5F5F5;"><input type="checkbox" name="colors" value="#F5F5F5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #CFD8DC;"><input type="checkbox" name="colors" value="#CFD8DC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EF9A9A;"><input type="checkbox" name="colors" value="#EF9A9A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F48FB1;"><input type="checkbox" name="colors" value="#F48FB1"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 5 -->
+<label class="color-option" style="background-color: #CE93D8;"><input type="checkbox" name="colors" value="#CE93D8"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B39DDB;"><input type="checkbox" name="colors" value="#B39DDB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #9EA8DA;"><input type="checkbox" name="colors" value="#9EA8DA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #90CAF9;"><input type="checkbox" name="colors" value="#90CAF9"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #81D4FA;"><input type="checkbox" name="colors" value="#81D4FA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #80DEEA;"><input type="checkbox" name="colors" value="#80DEEA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #80CBC4;"><input type="checkbox" name="colors" value="#80CBC4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #A5D6A7;"><input type="checkbox" name="colors" value="#A5D6A7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C4E1A5;"><input type="checkbox" name="colors" value="#C4E1A5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E6EE9C;"><input type="checkbox" name="colors" value="#E6EE9C"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 6 -->
+<label class="color-option" style="background-color: #FFF59D;"><input type="checkbox" name="colors" value="#FFF59D"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFE082;"><input type="checkbox" name="colors" value="#FFE082"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFCC80;"><input type="checkbox" name="colors" value="#FFCC80"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFA78C;"><input type="checkbox" name="colors" value="#FFA78C"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #BCAAA4;"><input type="checkbox" name="colors" value="#BCAAA4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EDEFF0;"><input type="checkbox" name="colors" value="#EDEFF0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B0BEC5;"><input type="checkbox" name="colors" value="#B0BEC5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E57373;"><input type="checkbox" name="colors" value="#E57373"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F06292;"><input type="checkbox" name="colors" value="#F06292"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #BA68C8;"><input type="checkbox" name="colors" value="#BA68C8"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 7 -->
+<label class="color-option" style="background-color: #9575CD;"><input type="checkbox" name="colors" value="#9575CD"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #7986CB;"><input type="checkbox" name="colors" value="#7986CB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #64B5F6;"><input type="checkbox" name="colors" value="#64B5F6"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4FC3F7;"><input type="checkbox" name="colors" value="#4FC3F7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4ED0E1;"><input type="checkbox" name="colors" value="#4ED0E1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4DB6AC;"><input type="checkbox" name="colors" value="#4DB6AC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #81C784;"><input type="checkbox" name="colors" value="#81C784"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #AED581;"><input type="checkbox" name="colors" value="#AED581"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #DCE775;"><input type="checkbox" name="colors" value="#DCE775"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFF176;"><input type="checkbox" name="colors" value="#FFF176"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 8 -->
+<label class="color-option" style="background-color: #FFD54F;"><input type="checkbox" name="colors" value="#FFD54F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFB74D;"><input type="checkbox" name="colors" value="#FFB74D"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FF8A65;"><input type="checkbox" name="colors" value="#FF8A65"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #A18880;"><input type="checkbox" name="colors" value="#A18880"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E0E0E0;"><input type="checkbox" name="colors" value="#E0E0E0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #90A4AE;"><input type="checkbox" name="colors" value="#90A4AE"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EF5350;"><input type="checkbox" name="colors" value="#EF5350"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EC407A;"><input type="checkbox" name="colors" value="#EC407A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #AB47BC;"><input type="checkbox" name="colors" value="#AB47BC"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #7E57C2;"><input type="checkbox" name="colors" value="#7E57C2"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 9 -->
+<label class="color-option" style="background-color: #5C6BC0;"><input type="checkbox" name="colors" value="#5C6BC0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #42A5F5;"><input type="checkbox" name="colors" value="#42A5F5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #2AB6F6;"><input type="checkbox" name="colors" value="#2AB6F6"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #25C6DA;"><input type="checkbox" name="colors" value="#25C6DA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #26A69A;"><input type="checkbox" name="colors" value="#26A69A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #65BB6A;"><input type="checkbox" name="colors" value="#65BB6A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #9CCC64;"><input type="checkbox" name="colors" value="#9CCC64"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D4E157;"><input type="checkbox" name="colors" value="#D4E157"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFEE58;"><input type="checkbox" name="colors" value="#FFEE58"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFCA28;"><input type="checkbox" name="colors" value="#FFCA28"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 10 -->
+<label class="color-option" style="background-color: #FAA724;"><input type="checkbox" name="colors" value="#FAA724"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FF7043;"><input type="checkbox" name="colors" value="#FF7043"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #8C6E63;"><input type="checkbox" name="colors" value="#8C6E63"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #BDBDBD;"><input type="checkbox" name="colors" value="#BDBDBD"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #78909C;"><input type="checkbox" name="colors" value="#78909C"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F44236;"><input type="checkbox" name="colors" value="#F44236"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E92763;"><input type="checkbox" name="colors" value="#E92763"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #9C27B0;"><input type="checkbox" name="colors" value="#9C27B0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #6238B4;"><input type="checkbox" name="colors" value="#6238B4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #3F51B5;"><input type="checkbox" name="colors" value="#3F51B5"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 11 -->
+<label class="color-option" style="background-color: #2196F3;"><input type="checkbox" name="colors" value="#2196F3"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #02A9F4;"><input type="checkbox" name="colors" value="#02A9F4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #00BCD4;"><input type="checkbox" name="colors" value="#00BCD4"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #009688;"><input type="checkbox" name="colors" value="#009688"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4CAF50;"><input type="checkbox" name="colors" value="#4CAF50"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #8BC34A;"><input type="checkbox" name="colors" value="#8BC34A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #CDDC39;"><input type="checkbox" name="colors" value="#CDDC39"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFEB3B;"><input type="checkbox" name="colors" value="#FFEB3B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FDC129;"><input type="checkbox" name="colors" value="#FDC129"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FF981A;"><input type="checkbox" name="colors" value="#FF981A"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 12 -->
+<label class="color-option" style="background-color: #FF5723;"><input type="checkbox" name="colors" value="#FF5723"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #795648;"><input type="checkbox" name="colors" value="#795648"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #9E9E9E;"><input type="checkbox" name="colors" value="#9E9E9E"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #607D8B;"><input type="checkbox" name="colors" value="#607D8B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E53936;"><input type="checkbox" name="colors" value="#E53936"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D82461;"><input type="checkbox" name="colors" value="#D82461"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #8E23AA;"><input type="checkbox" name="colors" value="#8E23AA"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #5E35B1;"><input type="checkbox" name="colors" value="#5E35B1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #3949AB;"><input type="checkbox" name="colors" value="#3949AB"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #1E88E5;"><input type="checkbox" name="colors" value="#1E88E5"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 13 -->
+<label class="color-option" style="background-color: #039BE5;"><input type="checkbox" name="colors" value="#039BE5"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #00ACC1;"><input type="checkbox" name="colors" value="#00ACC1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #00897B;"><input type="checkbox" name="colors" value="#00897B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #43A047;"><input type="checkbox" name="colors" value="#43A047"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #7CB342;"><input type="checkbox" name="colors" value="#7CB342"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C0CA32;"><input type="checkbox" name="colors" value="#C0CA32"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FDD835;"><input type="checkbox" name="colors" value="#FDD835"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FFB321;"><input type="checkbox" name="colors" value="#FFB321"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FD8E18;"><input type="checkbox" name="colors" value="#FD8E18"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F4511E;"><input type="checkbox" name="colors" value="#F4511E"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 14 -->
+<label class="color-option" style="background-color: #6D4B40;"><input type="checkbox" name="colors" value="#6D4B40"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #757575;"><input type="checkbox" name="colors" value="#757575"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #546E7A;"><input type="checkbox" name="colors" value="#546E7A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D32F2F;"><input type="checkbox" name="colors" value="#D32F2F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C21F5B;"><input type="checkbox" name="colors" value="#C21F5B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #7B20A2;"><input type="checkbox" name="colors" value="#7B20A2"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #512DA8;"><input type="checkbox" name="colors" value="#512DA8"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #303F9F;"><input type="checkbox" name="colors" value="#303F9F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #1875D2;"><input type="checkbox" name="colors" value="#1875D2"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #0488D1;"><input type="checkbox" name="colors" value="#0488D1"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 15 -->
+<label class="color-option" style="background-color: #0297A7;"><input type="checkbox" name="colors" value="#0297A7"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #00796A;"><input type="checkbox" name="colors" value="#00796A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #388E3D;"><input type="checkbox" name="colors" value="#388E3D"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #689F38;"><input type="checkbox" name="colors" value="#689F38"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #AFB42B;"><input type="checkbox" name="colors" value="#AFB42B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FDD835;"><input type="checkbox" name="colors" value="#FDD835"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FF991B;"><input type="checkbox" name="colors" value="#FF991B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F57D14;"><input type="checkbox" name="colors" value="#F57D14"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E64D12;"><input type="checkbox" name="colors" value="#E64D12"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #5D4038;"><input type="checkbox" name="colors" value="#5D4038"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 16 -->
+<label class="color-option" style="background-color: #616161;"><input type="checkbox" name="colors" value="#616161"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #445A63;"><input type="checkbox" name="colors" value="#445A63"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #C62827;"><input type="checkbox" name="colors" value="#C62827"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #AD1B57;"><input type="checkbox" name="colors" value="#AD1B57"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #6A1C9A;"><input type="checkbox" name="colors" value="#6A1C9A"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4527A0;"><input type="checkbox" name="colors" value="#4527A0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #293593;"><input type="checkbox" name="colors" value="#293593"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #1765C0;"><input type="checkbox" name="colors" value="#1765C0"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #0078BD;"><input type="checkbox" name="colors" value="#0078BD"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #00838F;"><input type="checkbox" name="colors" value="#00838F"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 17 -->
+<label class="color-option" style="background-color: #02695D;"><input type="checkbox" name="colors" value="#02695D"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #2E7D32;"><input type="checkbox" name="colors" value="#2E7D32"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #558B2F;"><input type="checkbox" name="colors" value="#558B2F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #9E9D24;"><input type="checkbox" name="colors" value="#9E9D24"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F9A825;"><input type="checkbox" name="colors" value="#F9A825"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FD8E18;"><input type="checkbox" name="colors" value="#FD8E18"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #EF6C11;"><input type="checkbox" name="colors" value="#EF6C11"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #D84314;"><input type="checkbox" name="colors" value="#D84314"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4E342F;"><input type="checkbox" name="colors" value="#4E342F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #424242;"><input type="checkbox" name="colors" value="#424242"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 18 -->
+<label class="color-option" style="background-color: #38474F;"><input type="checkbox" name="colors" value="#38474F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #B71B1C;"><input type="checkbox" name="colors" value="#B71B1C"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #88144F;"><input type="checkbox" name="colors" value="#88144F"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #4A128C;"><input type="checkbox" name="colors" value="#4A128C"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #311B92;"><input type="checkbox" name="colors" value="#311B92"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #19237E;"><input type="checkbox" name="colors" value="#19237E"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #0D47A1;"><input type="checkbox" name="colors" value="#0D47A1"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #01589B;"><input type="checkbox" name="colors" value="#01589B"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #006064;"><input type="checkbox" name="colors" value="#006064"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #004D40;"><input type="checkbox" name="colors" value="#004D40"><span class="color-checkmark"></span></label>
+
+<!-- Колонна 19 -->
+<label class="color-option" style="background-color: #1B5E21;"><input type="checkbox" name="colors" value="#1B5E21"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #34681D;"><input type="checkbox" name="colors" value="#34681D"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #827717;"><input type="checkbox" name="colors" value="#827717"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #F57D14;"><input type="checkbox" name="colors" value="#F57D14"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #FF6F11;"><input type="checkbox" name="colors" value="#FF6F11"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #E64D12;"><input type="checkbox" name="colors" value="#E64D12"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #BF360C;"><input type="checkbox" name="colors" value="#BF360C"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #3E2723;"><input type="checkbox" name="colors" value="#3E2723"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #212121;"><input type="checkbox" name="colors" value="#212121"><span class="color-checkmark"></span></label>
+<label class="color-option" style="background-color: #263238;"><input type="checkbox" name="colors" value="#263238"><span class="color-checkmark"></span></label>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="form-group">
+                    <label class="question-label">3.2 Logotip qaysi uslubda bo'lishi kerak? <span class="required">*</span></label>
+                    <div class="checkbox-group visual" data-selection="multiple">
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Qisqartmali logotip">
+                            <span class="checkmark-overlay"></span>
+                            Qisqartmali logotip<br>
+                            <img src="image/Qisqartmali logotip.png" alt="Qisqartmali logotip">
+                        </label>
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Matnli logotip (wordmark)">
+                            <span class="checkmark-overlay"></span>
+                            Matnli logotip (wordmark)<br>
+                            <img src="image/2.png" alt="Matnli logotip (wordmark)">
+                        </label>
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Grafik belgili va matnli">
+                            <span class="checkmark-overlay"></span>
+                            Grafik belgili va matnli<br>
+                            <img src="image/3.png" alt="Grafik belgili va matnli">
+                        </label>
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Emblemali logotip">
+                            <span class="checkmark-overlay"></span>
+                            Emblemali logotip<br>
+                            <img src="image/4.png" alt="Emblemali logotip">
+                        </label>
+
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Abstract logotip">
+                            <span class="checkmark-overlay"></span>
+                            Abstract logotip<br>
+                            <img src="image/7.png" alt="Abstract logotip">
+                        </label>
+
+                        <label class="visual-label">
+                            <input type="checkbox" name="style" value="Maskotli logotip">
+                            <span class="checkmark-overlay"></span>
+                            Maskotli logotip<br>
+                            <img src="image/5.png" alt="Maskotli logotip">
+                        </label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="question-label">3.3 Logotipda sizning sohangiz aks ettirishi kerakmi? <span class="required">*</span></label>
+                    <div class="checkbox-group" data-selection="single">
+                        <label><input type="checkbox" name="reflect" value="Ha, to'g'ridan-to'g'ri aks ettirishi kerak"><span class="custom-checkbox"></span> Ha, to'g'ridan-to'g'ri aks ettirishi kerak</label>
+                        <label><input type="checkbox" name="reflect" value="Ha, lekin mavhum tarzda"><span class="custom-checkbox"></span> Ha, lekin mavhum tarzda</label>
+                        <label><input type="checkbox" name="reflect" value="Yo'q, logotip universal bo'lishi kerak"><span class="custom-checkbox"></span> Yo'q, logotip universal bo'lishi kerak</label>
+
+                        <label><input type="checkbox" name="reflect" value="Minimalizm shakllar orqali"><span class="custom-checkbox"></span> Faqat minimalizm shakllar orqali</label>
+
+                        <label><input type="checkbox" name="position" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
+                        <input type="text" class="other-input" name="position-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+
+
+
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 4. Qo'shimcha malumotlar -->
+<section class="section-block">
+    <h2>4. Qo'shimcha malumotlar</h2>
+    <div class="form-group">
+        <label class="question-label">4.1 Biznesingizni shiorini yozib qoldiring <span class="required">*</span></label>
+        <div class="checkbox-group" data-selection="single">
+            <label><input type="checkbox" name="slogan" value="Shiorni yozish" class="other-option"><span class="custom-checkbox"></span> Shiorni yozish</label>
+            <input type="text" class="other-input" name="slogan-text" placeholder="Shioringizni kiriting" style="display: none;">
+            <label><input type="checkbox" name="slogan" value="Shior yo'q, taklif bering"><span class="custom-checkbox"></span> Shior yo'q, taklif bering</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="competitors" class="question-label">4.2 Sizning asosiy raqobatchi brendlaringiz kimlar? <span class="required">*</span></label>
+        <textarea id="competitors" name="competitors" required></textarea>
+    </div>
+    <div class="form-group">
+        <label class="question-label">4.3 Mijozlaringiz sizni qayerda ko'proq uchratishadi? <span class="required">*</span></label>
+        <div class="checkbox-group" data-selection="multiple">
+            <label><input type="checkbox" name="meet" value="Do'konlar va supermarketlar"><span class="custom-checkbox"></span> Do'konlar va supermarketlar</label>
+            <label><input type="checkbox" name="meet" value="Onlayn platformalar va veb-saytlar"><span class="custom-checkbox"></span> Onlayn platformalar va veb-saytlar</label>
+            <label><input type="checkbox" name="meet" value="Ijtimoiy tarmoqlar"><span class="custom-checkbox"></span> Ijtimoiy tarmoqlar</label>
+            <label><input type="checkbox" name="meet" value="Televizion reklama"><span class="custom-checkbox"></span> Televizion reklama</label>
+            <label><input type="checkbox" name="meet" value="boshqa javob" class="other-option"><span class="custom-checkbox"></span> boshqa javob</label>
+            <input type="text" class="other-input" name="meet-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="question-label">4.4 Logotip bo'yicha yakuniy qarorni nechta odam qabul qiladi? <span class="required">*</span></label>
+        <div class="checkbox-group" data-selection="single">
+            <label><input type="checkbox" name="decision" value="1"><span class="custom-checkbox"></span> 1</label>
+            <label><input type="checkbox" name="decision" value="2"><span class="custom-checkbox"></span> 2</label>
+            <label><input type="checkbox" name="decision" value="3"><span class="custom-checkbox"></span> 3</label>
+            <label><input type="checkbox" name="decision" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
+            <input type="text" class="other-input" name="decision-other" placeholder="O'z variantingizni kiriting" style="display: none;">
+        </div>
+    </div>
+</section>
+
+            <button type="submit">Yuborish</button>
+        </form>
+    </div>
+
+
+
+
+
+
+</body>
+</html>

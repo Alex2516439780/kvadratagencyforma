@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kvadrat Agency</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="image/kvv.png" alt="logo">
+            </div>
+        </header>
+        <main>
+            <div class="content">
+                <div class="left">
+                    <h1>LOGOTIP<br><span class="highlight">ISHLAB CHIQARISH BO‘YICHA BRIF</span></h1>
+                    <p class="description">
+                        Quyida “Kvadrat-agency” brending kompaniyasining brend ishlab chiqish xizmati bo‘yicha savollar anketasi taqdim etilgan. Iltimos savollarga batafsil javob berishga harakat qiling.
+                    </p>
+                </div>
+                <div class="right">
+                    <h2>Brifni to'ldirish bo'yicha muhim ma'lumot</h2>
+                    <div class="faq">
+                        <div class="faq-item">
+                            <button class="faq-btn">▾ Brif qanday maqsadda ishlatiladi?</button>
+                            <p class="faq-answer">Brif sizning biznesingiz, maqsadlaringiz va ko'rish istagan natijalaringiz haqida tushuncha beradi. Bu ma'lumotlar asosida biz sizning brendingizni aniq va samarali tarzda yaratishimiz mumkin bo'ladi.</p>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-btn">▾ Qanday ma'lumotlarni taqdim etishim kerak?</button>
+                            <p class="faq-answer">Kompaniyangiz tarixi, qiymatlar, raqobatchilar, maqsadli auditoriya va dizayn afzalliklari haqida batafsil ma'lumotlarni taqdim eting. Qanchalik ko'p ma'lumot bersangiz, natija shunchalik sizning kutganingizga mos keladi.</p>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-btn">▾ Agar savollarim bo'lsa nima qilaman?</button>
+                            <p class="faq-answer">Brifni to'ldirish davomida har qanday savollar yuzaga kelsa, bizning mutaxassislarimiz bilan to'g'ridan-to'g'ri bog'lanishingiz mumkin. Biz sizga yordam berishdan mamnun bo'lamiz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <a href="form.html">
+                <button class="brief-btn">Brifni to‘ldirish</button>
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isActive = answer.style.display === 'block';
+
+                document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
+                document.querySelectorAll('.faq-btn').forEach(btn => btn.textContent = '▾ ' + btn.textContent.slice(2));
+
+                if (!isActive) {
+                    answer.style.display = 'block';
+                    button.textContent = '▴ ' + button.textContent.slice(2);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

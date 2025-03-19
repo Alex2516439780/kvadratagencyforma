@@ -1,0 +1,417 @@
+/* Сброс стилей для всех элементов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    line-height: 1.8;
+    position: relative;
+    overflow-x: hidden;
+    background-image: url(image/3282e3b31fbe361964ad1312539194cb.jpg);
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.section-block {
+    background-color: rgba(26, 26, 26, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.required {
+    color: #ff4d4d;
+}
+
+input[type="text"],
+input[type="tel"],
+textarea,
+.other-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: rgba(51, 51, 51, 0.9);
+    color: #fff;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #fff;
+    width: calc(50% - 5px);
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-group input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-group input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+    content: '✔';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    color: #000;
+    font-size: 14px;
+}
+
+.visual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.visual-label {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: calc(50% - 5px);
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-weight: 400;
+    position: relative;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.visual-label img {
+    margin-top: 15px;
+    width: 100%;
+    aspect-ratio: 300 / 150;
+    max-width: 300px;
+    min-width: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ffffff77;
+    transition: opacity 0.3s ease;
+}
+
+.checkmark-overlay {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 300px;
+    min-width: 200px;
+    aspect-ratio: 300 / 150;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.visual-label input[type="checkbox"]:checked + .checkmark-overlay {
+    opacity: 1;
+}
+
+.checkmark-overlay::after {
+    content: '✔';
+    position: absolute;
+    top: 115%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(30px, 20%, 50px);
+    color: #0def14;
+    text-shadow: 0 0 5px rgb(60, 255, 0);
+}
+
+.visual-label:hover .checkmark-overlay {
+    opacity: 0.2;
+    color: #09ff3e;
+}
+
+.checkbox-group label:hover .custom-checkbox {
+    background-color: rgb(255, 250, 250);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    background-color: #1cff20;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #e6ece6;
+}
+
+.color-picker {
+    display: grid;
+    grid-template-columns: repeat(19, 1fr);
+    grid-template-rows: repeat(10, auto);
+    grid-template-rows: 43px 43px 43px 43px 43px 43px 43px 43px 43px 43px;
+    gap: 0;
+    column-gap: 0;
+    row-gap: 0;
+    padding: 0;
+    width: 100%; /* Устанавливаем ширину 100% вместо 99% */
+    max-width: 958px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    overflow-x: hidden; /* Убираем горизонтальный скролл */
+    border-radius: 8px;
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Эффект лупы при наведении */
+.color-option {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: none;
+    box-sizing: border-box;
+    display: block;
+    line-height: 0;
+    z-index: 1; /* Увеличиваем z-index для избежания наложения */
+}
+
+.color-option:hover {
+    transform: scale(1.2); /* Эффект лупы (увеличение на 20%) */
+    z-index: 10; /* Поднимаем элемент над остальными при наведении */
+}
+
+.color-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.color-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    transition: all 0.3s ease;
+    line-height: 0;
+}
+
+.color-option:hover .color-checkmark {
+    border: 1px solid #fff;
+    filter: brightness(1.2);
+}
+
+.color-option input[type="checkbox"]:checked + .color-checkmark {
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.color-option input[type="checkbox"]:checked + .color-checkmark::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 18px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .section-block {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+    .checkbox-group label,
+    .visual-label {
+        width: 100%;
+    }
+    button {
+        font-size: 1rem;
+        padding: 15px;
+        margin-top: 15px;
+    }
+    .color-picker {
+        max-width: 100%; /* Устанавливаем ширину 100% */
+        margin: 0 auto;
+        grid-template-rows: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    label {
+        font-size: 1rem;
+    }
+    input[type="text"],
+    input[type="tel"],
+    textarea,
+    .other-input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+    .section-block {
+        padding: 8px;
+    }
+    .checkbox-group {
+        gap: 8px;
+    }
+    /* Поворачиваем только палитру на 90 градусов */
+    .color-picker {
+        transform: rotate(0deg); /* Поворот отключён */
+        transform-origin: center center;
+        max-width: 100%; /* Устанавливаем ширину 100% */
+        width: 100%; /* Устанавливаем ширину 100% вместо фиксированной 430px */
+        height: auto; /* Высота автоматическая */
+        margin: 0 auto;
+        grid-template-columns: repeat(19, 1fr);
+        grid-template-rows: repeat(10, 30px); /* Устанавливаем высоту строк как в предыдущем медиа-запросе */
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        overflow-y: auto; /* Оставляем вертикальный скролл */
+    }
+    /* Корректируем чекмарки, чтобы они не поворачивались */
+    .color-option input[type="checkbox"]:checked + .color-checkmark::after {
+        transform: translate(-50%, -50%); /* Убираем поворот */
+    }
+}
+
+@media (max-width: 400px) {
+    .color-picker {
+        width: 100%; /* Устанавливаем ширину 100% */
+        height: auto; /* Высота автоматическая */
+        grid-template-rows: repeat(10, 16px); /* Уменьшаем высоту строк */
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+    }
+
+    .color-option input[type="checkbox"]:checked + .color-checkmark::after {
+        content: '✔'; /* Возвращаем галочку */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 10px;
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        line-height: 1;
+    }
+}

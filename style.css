@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-image: url(image/Group\ 59.jpg);
+    background-size: cover;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80vh;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo img {
+    width: 180px;
+    height: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.left {
+    flex: 1;
+}
+
+.right {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 85px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #ffffffb0;
+    font-size: 30px;
+    display: block;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #ffffffc9;
+    max-width: 520px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.brief-btn {
+    background-color: transparent;
+    border: 1px solid #000000;
+    color: #000000;
+    padding: 20px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: rgb(14, 245, 14);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.brief-btn:hover {
+    background-color: #E1E1DF;
+    color: #000000;
+}
+
+/* Стили для FAQ */
+.faq {
+    margin-top: 20px;
+}
+
+.faq-item {
+    margin-bottom: 10px;
+}
+
+.faq-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.faq-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #ddd;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .right {
+        margin-top: 0px;
+    }
+
+    h1 {
+        font-size: 50px;
+        margin-top: 60px;
+    }
+
+    .highlight {
+        font-size: 20px;
+    }
+    .footer {
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 130px;
+        margin-bottom: 60px;
+        margin-top: -50px;
+    }
+
+    h1 {
+        font-size: 50px;
+        margin-top: -50px;
+    }
+
+    .highlight {
+        font-size: 14px;
+    }
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .description {
+        font-size: 12px;
+        width: 260px;
+        /* padding: 10px 0px; */
+    }
+
+    .brief-btn {
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    .faq-btn {
+        font-size: 14px;
+    }
+
+    .faq-answer {
+        font-size: 12px;
+    }
+    .right {
+        margin-top: -30px;
+    }
+    .brief-btn {
+        margin: 0px;
+
+    }
+
+}
