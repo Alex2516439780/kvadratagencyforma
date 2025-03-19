@@ -234,7 +234,7 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(10, auto);
-    grid-template-rows: 43px 43px 43px 43px 43px 43px 43px 43px 43px 43px;
+    grid-template-rows: 42px 42px 42px 42px 42px 42px 42px 42px 42px ;
     gap: 0;
     column-gap: 0;
     row-gap: 0;
