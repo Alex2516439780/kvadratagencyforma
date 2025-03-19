@@ -385,7 +385,7 @@ button:hover {
         height: auto; /* Высота автоматическая */
         margin: 0 auto;
         grid-template-columns: repeat(19, 1fr);
-        grid-template-rows: repeat(10, 30px); /* Устанавливаем высоту строк как в предыдущем медиа-запросе */
+        grid-template-rows: repeat(10, 19px); /* Устанавливаем высоту строк как в предыдущем медиа-запросе */
         overflow-x: hidden; /* Убираем горизонтальный скролл */
         overflow-y: auto; /* Оставляем вертикальный скролл */
     }
