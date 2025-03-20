@@ -59,10 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Генерируем PDF
         const pdfDoc = generatePDF(formData);
 
-        // Отправляем PDF в Telegram в фоновом режиме
-        sendToTelegram(pdfDoc).catch(error => {
+        // Извлекаем имя компании из поля "brand-name"
+        const brandNameInput = document.getElementById('brand-name');
+        const brandName = brandNameInput.value.trim();
+
+        // Отправляем PDF в Telegram с названием файла на основе имени компании
+        sendToTelegram(pdfDoc, brandName).catch(error => {
             console.error('Ошибка отправки в Telegram:', error);
-            // Можно добавить уведомление об ошибке, если отправка не удалась
             showErrorNotification('Xatolik yuz berdi, iltimos qayta urinib ko\'ring.');
         });
 
@@ -195,15 +198,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Функция для отправки в Telegram
-    async function sendToTelegram(pdfDoc) {
+    async function sendToTelegram(pdfDoc, brandName) {
         const botToken = '8164159617:AAGHUubSJbyxsOzIBbfcNOrQE5CsNnYD11o';
         const chatId = '1142868244';
         const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
 
+        // Очищаем имя компании от недопустимых символов и добавляем суффикс .pdf
+        const sanitizedBrandName = brandName
+            .replace(/[^a-zA-Z0-9-_]/g, '_') // Заменяем недопустимые символы на подчеркивание
+            .replace(/_+/g, '_') // Убираем множественные подчеркивания
+            .trim(); // Убираем пробелы в начале и конце
+        const fileName = sanitizedBrandName ? `${sanitizedBrandName}_brief.pdf` : 'brief.pdf'; // Если имя пустое, используем значение по умолчанию
+
         const blob = await new Promise(resolve => pdfDoc.getBlob(resolve));
         const formData = new FormData();
         formData.append('chat_id', chatId);
-        formData.append('document', blob, 'brief.pdf');
+        formData.append('document', blob, fileName);
 
         const response = await fetch(url, {
             method: 'POST',
