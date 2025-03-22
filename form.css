@@ -19,16 +19,7 @@ body {
 
 }
 
-/* #background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.8;
-} */
+
 
 .container {
     max-width: 900px;
@@ -106,7 +97,7 @@ textarea {
     display: flex;
     align-items: center;
     font-weight: 400;
-    font-size: 1rem;
+    font-size:  0.9rem;
     color: #fff;
     width: calc(50% - 5px);
     position: relative;
@@ -140,8 +131,8 @@ textarea {
 .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
     content: '✔';
     position: absolute;
-    left: 4px;
-    top: 1px;
+    left: 5px;
+    top: 5%;
     color: #000;
     font-size: 14px;
 }
@@ -396,6 +387,9 @@ button:hover {
     .color-option input[type="checkbox"]:checked + .color-checkmark::after {
         transform: translate(-50%, -50%); /* Убираем поворот */
     }
+
+
+
 }
 
 @media (max-width: 400px) {
@@ -416,5 +410,28 @@ button:hover {
         font-size: 10px;
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         line-height: 1;
+    }
+
+}
+
+
+@media (max-width: 390px)  {
+    .checkbox-group .qwer input[type="checkbox"]:checked + .custom-checkbox::after {
+        content: '✔';
+        position: absolute;
+        left: 3px;
+        top: 15px;
+        color: #000;
+        font-size: 12px;
+    }
+
+
+    .checkbox-group  input[type="checkbox"]:checked + .custom-checkbox::after {
+        content: '✔';
+        position: absolute;
+        left: 4px;
+        top: 3px;
+        color: #000;
+        font-size: 12px;
     }
 }
