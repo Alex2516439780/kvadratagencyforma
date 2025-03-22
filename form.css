@@ -16,10 +16,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
-
-
 
 .container {
     max-width: 900px;
@@ -97,7 +94,7 @@ textarea {
     display: flex;
     align-items: center;
     font-weight: 400;
-    font-size:  0.9rem;
+    font-size: 0.9rem;
     color: #fff;
     width: calc(50% - 5px);
     position: relative;
@@ -121,6 +118,7 @@ textarea {
     border-radius: 4px;
     margin-right: 10px;
     transition: all 0.3s ease;
+    position: relative; /* Для точного позиционирования галочки */
 }
 
 .checkbox-group input[type="checkbox"]:checked + .custom-checkbox {
@@ -131,10 +129,15 @@ textarea {
 .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
     content: '✔';
     position: absolute;
-    left: 5px;
-    top: 5%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Центрирование галочки */
     color: #000;
     font-size: 14px;
+}
+
+.checkbox-group label:hover .custom-checkbox {
+    background-color: rgb(255, 250, 250);
 }
 
 .visual {
@@ -202,10 +205,6 @@ textarea {
     color: #09ff3e;
 }
 
-.checkbox-group label:hover .custom-checkbox {
-    background-color: rgb(255, 250, 250);
-}
-
 button {
     display: block;
     width: 100%;
@@ -227,25 +226,21 @@ button:hover {
 .color-picker {
     display: grid;
     grid-template-columns: repeat(19, 1fr);
-    grid-template-rows: repeat(10, auto);
-    grid-template-rows: 42px 42px 42px 42px 42px 42px 42px 42px 42px ;
+    grid-template-rows: repeat(10, 42px);
     gap: 0;
-    column-gap: 0;
-    row-gap: 0;
     padding: 0;
-    width: 100%; /* Устанавливаем ширину 100% вместо 99% */
+    width: 100%;
     max-width: 958px;
     margin: 0 auto;
     box-sizing: border-box;
     background-color: transparent;
     border: none;
-    overflow-x: hidden; /* Убираем горизонтальный скролл */
+    overflow-x: hidden;
     border-radius: 8px;
     font-size: 0;
     line-height: 0;
 }
 
-/* Эффект лупы при наведении */
 .color-option {
     width: 100%;
     height: 0;
@@ -257,12 +252,12 @@ button:hover {
     box-sizing: border-box;
     display: block;
     line-height: 0;
-    z-index: 1; /* Увеличиваем z-index для избежания наложения */
+    z-index: 1;
 }
 
 .color-option:hover {
-    transform: scale(1.2); /* Эффект лупы (увеличение на 20%) */
-    z-index: 10; /* Поднимаем элемент над остальными при наведении */
+    transform: scale(1.2);
+    z-index: 10;
 }
 
 .color-option input[type="checkbox"] {
@@ -332,16 +327,23 @@ button:hover {
     .visual-label {
         width: 100%;
     }
+    .custom-checkbox {
+        width: 18px;
+        height: 18px;
+    }
+    .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+        font-size: 12px;
+    }
     button {
         font-size: 1rem;
         padding: 15px;
         margin-top: 15px;
     }
     .color-picker {
-        max-width: 100%; /* Устанавливаем ширину 100% */
+        max-width: 100%;
         margin: 0 auto;
-        grid-template-rows: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
-        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        grid-template-rows: repeat(10, 30px);
+        overflow-x: hidden;
     }
 }
 
@@ -370,68 +372,55 @@ button:hover {
     .checkbox-group {
         gap: 8px;
     }
-    /* Поворачиваем только палитру на 90 градусов */
+    .custom-checkbox {
+        width: 16px;
+        height: 16px;
+    }
+    .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+        font-size: 10px;
+    }
     .color-picker {
-        transform: rotate(0deg); /* Поворот отключён */
+        transform: rotate(0deg);
         transform-origin: center center;
-        max-width: 100%; /* Устанавливаем ширину 100% */
-        width: 100%; /* Устанавливаем ширину 100% вместо фиксированной 430px */
-        height: auto; /* Высота автоматическая */
+        max-width: 100%;
+        width: 100%;
+        height: auto;
         margin: 0 auto;
         grid-template-columns: repeat(19, 1fr);
-        grid-template-rows: repeat(10, 19px); /* Устанавливаем высоту строк как в предыдущем медиа-запросе */
-        overflow-x: hidden; /* Убираем горизонтальный скролл */
-        overflow-y: auto; /* Оставляем вертикальный скролл */
+        grid-template-rows: repeat(10, 19px);
+        overflow-x: hidden;
+        overflow-y: auto;
     }
-    /* Корректируем чекмарки, чтобы они не поворачивались */
     .color-option input[type="checkbox"]:checked + .color-checkmark::after {
-        transform: translate(-50%, -50%); /* Убираем поворот */
+        transform: translate(-50%, -50%);
     }
-
-
-
 }
 
 @media (max-width: 400px) {
+    .custom-checkbox {
+        width: 14px;
+        height: 14px;
+    }
+    .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+        font-size: 9px;
+    }
     .color-picker {
-        width: 100%; /* Устанавливаем ширину 100% */
-        height: auto; /* Высота автоматическая */
-        grid-template-rows: repeat(10, 16px); /* Уменьшаем высоту строк */
-        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        width: 100%;
+        height: auto;
+        grid-template-rows: repeat(10, 16px);
+        overflow-x: hidden;
     }
-
     .color-option input[type="checkbox"]:checked + .color-checkmark::after {
-        content: '✔'; /* Возвращаем галочку */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
         font-size: 10px;
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-        line-height: 1;
     }
-
 }
 
-
-@media (max-width: 390px)  {
-    .checkbox-group .qwer input[type="checkbox"]:checked + .custom-checkbox::after {
-        content: '✔';
-        position: absolute;
-        left: 3px;
-        top: 15px;
-        color: #000;
-        font-size: 12px;
+@media (max-width: 390px) {
+    .custom-checkbox {
+        width: 14px;
+        height: 14px;
     }
-
-
-    .checkbox-group  input[type="checkbox"]:checked + .custom-checkbox::after {
-        content: '✔';
-        position: absolute;
-        left: 4px;
-        top: 3px;
-        color: #000;
-        font-size: 12px;
+    .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+        font-size: 9px;
     }
 }
