@@ -141,7 +141,7 @@ textarea {
     content: '✔';
     position: absolute;
     left: 4px;
-    top: 0;
+    top: 1px;
     color: #000;
     font-size: 14px;
 }
