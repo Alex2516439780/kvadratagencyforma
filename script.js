@@ -211,8 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для отправки в Telegram
     async function sendToTelegram(pdfDoc, brandName) {
-        const botToken = '7004935244:AAGOoFolsnNLKgYWKJol7EuPVnCApn9EPpo';
-        const chatId = '521500516';
+        const botToken = '8164159617:AAGHUubSJbyxsOzIBbfcNOrQE5CsNnYD11o';
+        const chatId = '1142868244';
         const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
 
         // Очищаем имя компании от недопустимых символов и добавляем суффикс .pdf
