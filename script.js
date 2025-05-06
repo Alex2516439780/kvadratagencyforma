@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Проверка обязательных полей
         if (!validateForm()) {
-            showErrorNotification('Iltimos, barcha majburiy savollarni to\'ldiring! 3.1 uchun 3 ta rang tanlang.');
+            showErrorNotification('Iltimos, barcha majburiy savollarni to\'ldiring! 3.1 uchun kamida 2 ta rang tanlang.');
             return;
         }
 
@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
             showErrorNotification('Xatolik yuz berdi, iltimos qayta urinib ko\'ring.');
         });
 
-        // Лоадер будет заполняться 10 секунд, после чего покажем уведомление
+        // Лоадер будет заполняться 5 секунд, после чего покажем уведомление
         setTimeout(() => {
             hideLoadingAnimation();
             showSuccessNotification();
-        }, 10000); // 10 секунд
+        }, 5000); // 5 секунд
     });
 
     // Функция валидации формы
@@ -94,17 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // Проверка обязательных checkbox-групп и color-picker
         const requiredGroups = document.querySelectorAll('.form-group .question-label .required');
         requiredGroups.forEach(required => {
-            const group = required.closest('.form-group').querySelector('.checkbox-group');
+            const group = required.closest('.form-group').querySelector('.checkbox-group, .color-picker');
             if (group) {
                 const checkedBoxes = group.querySelectorAll('input[type="checkbox"]:checked');
-                if (group.classList.contains('') && checkedBoxes.length !== 3) {
-                    isValid = false;
-                    group.style.border = '1px solid #ff4d4d';
-                } else if (!group.classList.contains('color-picker') && checkedBoxes.length === 0) {
-                    isValid = false;
-                    group.style.border = '1px solid #ff4d4d';
-                } else {
-                    group.style.border = 'none';
+                
+                // Проверка для цветовой палитры (вопрос 3.1)
+                if (group.classList.contains('color-picker')) {
+                    if (checkedBoxes.length < 2) {
+                        isValid = false;
+                        group.style.border = '2px solid #ff4d4d';
+                        // Прокручиваем к цветовой палитре
+                        group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        group.style.border = 'none';
+                    }
+                } 
+                // Проверка для обычных checkbox-групп
+                else if (group.classList.contains('checkbox-group')) {
+                    if (checkedBoxes.length === 0) {
+                        isValid = false;
+                        group.style.border = '1px solid #ff4d4d';
+                    } else {
+                        group.style.border = 'none';
+                    }
                 }
 
                 // Проверка поля ввода для "other-option" в обязательных группах
@@ -199,8 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для отправки в Telegram
     async function sendToTelegram(pdfDoc, brandName) {
-        const botToken = '8164159617:AAGHUubSJbyxsOzIBbfcNOrQE5CsNnYD11o';
-        const chatId = '1142868244';
+        const botToken = '7004935244:AAGOoFolsnNLKgYWKJol7EuPVnCApn9EPpo';
+        const chatId = '521500516';
         const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
 
         // Очищаем имя компании от недопустимых символов и добавляем суффикс .pdf
@@ -248,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fill.style.cssText = `
             position: absolute; bottom: 0; left: 0; width: 100%; height: 0;
             background: #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            transition: height 10s linear; /* Плавное заполнение за 10 секунд */
+            transition: height 5s linear; /* Плавное заполнение за 5 секунд */
         `;
         glass.appendChild(fill);
 
@@ -280,14 +292,14 @@ document.addEventListener('DOMContentLoaded', () => {
             percent.textContent = '100%';
         }, 0);
 
-        // Обновляем процент каждые 100 мс
+        // Обновляем процент каждые 50 мс
         let progress = 0;
         const interval = setInterval(() => {
             if (progress < 100) {
-                progress += 1;
+                progress += 2; // Увеличиваем на 2% за раз для ускорения анимации
                 percent.textContent = `${progress}%`;
             }
-        }, 100); // 100 мс * 100 шагов = 10 секунд
+        }, 50); // 50 мс * 50 шагов = 5 секунд
 
         overlay.dataset.interval = interval;
     }
