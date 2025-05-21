@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработка отправки формы
     const form = document.getElementById('briefForm');
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
