@@ -79,48 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция валидации формы
     function validateForm() {
         let isValid = true;
+        let errorMessages = [];
 
-        // Проверка текстовых полей и textarea с атрибутом required
-        const requiredInputs = document.querySelectorAll('input[required], textarea[required]');
-        requiredInputs.forEach(input => {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.style.borderColor = '#ff4d4d';
-            } else {
-                input.style.borderColor = '#fff';
+        // Проверка всех полей формы
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            const questionLabel = group.querySelector('.question-label');
+            const required = questionLabel?.querySelector('.required');
+            const input = group.querySelector('input, textarea');
+            const checkboxGroup = group.querySelector('.checkbox-group');
+            const colorPicker = group.querySelector('.color-picker');
+
+            // Проверка текстовых полей и textarea
+            if (input) {
+                if (required && !input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#ff4d4d';
+                    errorMessages.push(questionLabel.textContent.trim());
+                } else {
+                    input.style.borderColor = '#fff';
+                }
             }
-        });
 
-        // Проверка обязательных checkbox-групп и color-picker
-        const requiredGroups = document.querySelectorAll('.form-group .question-label .required');
-        requiredGroups.forEach(required => {
-            const group = required.closest('.form-group').querySelector('.checkbox-group, .color-picker');
-            if (group) {
-                const checkedBoxes = group.querySelectorAll('input[type="checkbox"]:checked');
-                
-                // Проверка для цветовой палитры (вопрос 3.1)
-                if (group.classList.contains('color-picker')) {
-                    if (checkedBoxes.length < 2) {
-                        isValid = false;
-                        group.style.border = '2px solid #ff4d4d';
-                        // Прокручиваем к цветовой палитре
-                        group.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else {
-                        group.style.border = 'none';
-                    }
-                } 
-                // Проверка для обычных checkbox-групп
-                else if (group.classList.contains('checkbox-group')) {
-                    if (checkedBoxes.length === 0) {
-                        isValid = false;
-                        group.style.border = '1px solid #ff4d4d';
-                    } else {
-                        group.style.border = 'none';
-                    }
+            // Проверка checkbox-групп
+            if (checkboxGroup) {
+                const checkedBoxes = checkboxGroup.querySelectorAll('input[type="checkbox"]:checked');
+                if (required && checkedBoxes.length === 0) {
+                    isValid = false;
+                    checkboxGroup.style.border = '1px solid #ff4d4d';
+                    errorMessages.push(questionLabel.textContent.trim());
+                } else {
+                    checkboxGroup.style.border = 'none';
                 }
 
-                // Проверка поля ввода для "other-option" в обязательных группах
-                const otherOption = group.querySelector('.other-option:checked');
+                // Проверка поля ввода для "other-option"
+                const otherOption = checkboxGroup.querySelector('.other-option:checked');
                 if (otherOption) {
                     const otherInput = otherOption.parentElement.nextElementSibling;
                     if (otherInput && !otherInput.value.trim()) {
@@ -131,7 +124,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
+
+            // Проверка цветовой палитры
+            if (colorPicker) {
+                const checkedColors = colorPicker.querySelectorAll('input[type="checkbox"]:checked');
+                if (required && checkedColors.length < 2) {
+                    isValid = false;
+                    colorPicker.style.border = '2px solid #ff4d4d';
+                    errorMessages.push(questionLabel.textContent.trim());
+                } else {
+                    colorPicker.style.border = 'none';
+                }
+            }
         });
+
+        // Показываем сообщение об ошибках
+        if (!isValid) {
+            const errorMessage = errorMessages.length === 1 
+                ? `Iltimos, to'g'ri to'ldiring: ${errorMessages[0]}`
+                : `Iltimos, to'g'ri to'ldiring: ${errorMessages.join(', ')}`;
+            showErrorNotification(errorMessage);
+        }
 
         return isValid;
     }

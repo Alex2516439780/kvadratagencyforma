@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="phone" class="question-label">1.4 Aloqa uchun telefon raqamingiz <span class="required">*</span></label>
+                    <label for="phone" class="question-label">1.4 Kompaniya telefon raqami <span class="required">*</span></label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
                 <div class="form-group">
@@ -61,10 +61,8 @@
                 <div class="form-group">
                     <label class="question-label">1.8 Yangi logotip dizaynni yaratish kerakmi, yoki mavjud logotipni yangilash lozimmi? <span class="required">*</span></label>
                     <div class="checkbox-group" data-selection="single">
-                        <label><input type="checkbox" name="logo-type" value="Yangi logotip ishlab chiqish"><span class="custom-checkbox"></span> Yangi logotip ishlab chiqish</label>
-                        <label><input type="checkbox" name="logo-type" value="Mavjud logotipni yangilash"><span class="custom-checkbox"></span> Mavjud logotipni yangilash</label>
-                        <label><input type="checkbox" name="logo-type" value="Logotipni qayta ishlash"><span class="custom-checkbox"></span> Logotipni qayta ishlash</label>
-                        <label><input type="checkbox" name="logo-type" value="Logotipni brandga moslashtirish"><span class="custom-checkbox"></span> Logotipni brandga moslashtirish</label>
+                        <label><input type="checkbox" name="logo-type" value="yangi logotip yaratish"><span class="custom-checkbox"></span> yangi logotip yaratish</label>
+                        <label><input type="checkbox" name="logo-type" value="redizayn qilish"><span class="custom-checkbox"></span> redizayn qilish</label>
                     </div>
                 </div>
             </section>
@@ -78,29 +76,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="question-label">2.2 Brandingning asosiy qadriyatlari va falsafasi <span class="required">*</span></label>
-                    <div class="checkbox-group" data-selection="double">
-                        <label><input type="checkbox" name="values" value="Sifat, ishonchlilik, innovatsiya"><span class="custom-checkbox"></span> Sifat, ishonchlilik, innovatsiya</label>
-                        <label><input type="checkbox" name="values" value="An'analar, madaniyat, ijodkorlik"><span class="custom-checkbox"></span> An'analar, madaniyat, ijodkorlik</label>
-                        <label class="qwer"><input type="checkbox" name="values" value="Ekologik tozalik, tabiiylik, sog'lom turmush tarzi"><span class="custom-checkbox"></span> Ekologik tozalik, tabiiylik, sog'lom turmush tarzi</label>
-                        <label class="qwer"><input type="checkbox" name="values" value="Texnologik taraqqiyot, samaradorlik, qulaylik"><span class="custom-checkbox"></span> Texnologik taraqqiyot, samaradorlik,  qulaylik</label>
-                        <label class="qwer"><input type="checkbox" name="values" value="Mijozlarga e'tibor, xizmat sifati, moslashuvchanlik"><span class="custom-checkbox"></span> Mijozlarga e'tibor, xizmat sifati, moslashuvchanlik</label>
-                        <label class="qwer"><input type="checkbox" name="values" value="Ijtimoiy mas'uliyat, barqaror rivojlanish, etika"><span class="custom-checkbox"></span> Ijtimoiy mas'uliyat, barqaror rivojlanish, etika</label>
-                        <label><input type="checkbox" name="values" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
-                        <input type="text" class="other-input" name="values-other" placeholder="O'z variantingizni kiriting" style="display: none;">
-                    </div>
+                    <label for="customers" class="question-label">2.2 Qanday tipdagi mijozlarga xizmat korsatasiz? <span class="required">*</span></label>
+                    <textarea id="customers" name="customers" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="question-label">2.3 Brand qanday xarakterga ega bo'lishi kerak? <span class="required">*</span></label>
-                    <div class="checkbox-group" data-selection="multiple">
-                        <label><input type="checkbox" name="character" value="Jiddiy va ishonchli"><span class="custom-checkbox"></span> Jiddiy va ishonchli</label>
-                        <label><input type="checkbox" name="character" value="Zamonaviy"><span class="custom-checkbox"></span> Zamonaviy</label>
-                        <label><input type="checkbox" name="character" value="Hashamatli"><span class="custom-checkbox"></span> Hashamatli</label>
-                        <label><input type="checkbox" name="character" value="Oddiy va chunarli"><span class="custom-checkbox"></span> Oddiy va Tushunarli</label>
-
-                        <label><input type="checkbox" name="character" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
-                        <input type="text" class="other-input" name="character-other" placeholder="O'z variantingizni kiriting" style="display: none;">
-                    </div>
+                    <label for="foundation-year" class="question-label">2.3 Kompaniyangiz nechanchi yilda o'z ish faoliyatini boshlagan? <span class="required">*</span></label>
+                    <input type="number" id="foundation-year" name="foundation-year" required min="1900" max="2025">
                 </div>
             </section>
 
@@ -450,6 +431,10 @@
             <label><input type="checkbox" name="decision" value="Boshqa javob" class="other-option"><span class="custom-checkbox"></span> Boshqa javob</label>
             <input type="text" class="other-input" name="decision-other" placeholder="O'z variantingizni kiriting" style="display: none;">
         </div>
+    </div>
+    <div class="form-group">
+        <label for="additional-info" class="question-label">4.5 Yana qanday qo'shimcha ma'lumot berishni istaysiz? <span class="required">*</span></label>
+        <textarea id="additional-info" name="additional-info" required></textarea>
     </div>
 </section>
 
