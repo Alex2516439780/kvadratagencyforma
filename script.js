@@ -39,44 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработка отправки формы
-    const form = document.getElementById('briefForm');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Проверка обязательных полей
-        if (!validateForm()) {
-            showErrorNotification('Iltimos, barcha majburiy savollarni to\'ldiring! 3.1 uchun kamida 2 ta rang tanlang.');
-            return;
-        }
-
-        // Показываем анимацию загрузки
-        showLoadingAnimation();
-
-        // Собираем данные из формы
-        const formData = collectFormData();
-
-        // Генерируем PDF
-        const pdfDoc = generatePDF(formData);
-
-        // Извлекаем имя компании из поля "brand-name"
-        const brandNameInput = document.getElementById('brand-name');
-        const brandName = brandNameInput.value.trim();
-
-        // Отправляем PDF в Telegram с названием файла на основе имени компании
-        sendToTelegram(pdfDoc, brandName).catch(error => {
-            console.error('Ошибка отправки в Telegram:', error);
-            showErrorNotification('Xatolik yuz berdi, iltimos qayta urinib ko\'ring.');
-        });
-
-        // Лоадер будет заполняться 5 секунд, после чего покажем уведомление
-        setTimeout(() => {
-            hideLoadingAnimation();
-            showSuccessNotification();
-        }, 5000); // 5 секунд
-    });
-
     // Функция валидации формы
     function validateForm() {
         let isValid = true;
@@ -93,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Проверка текстовых полей и textarea
             if (input) {
-                if (required && !input.value.trim()) {
+                if (required && !input.value.trim() && !input.classList.contains('year-input')) {
                     isValid = false;
                     input.style.borderColor = '#ff4d4d';
                     errorMessages.push(questionLabel.textContent.trim());
@@ -129,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Проверка цветовой палитры
             if (colorPicker) {
                 const checkedColors = colorPicker.querySelectorAll('input[type="checkbox"]:checked');
-                if (required && checkedColors.length < 2) {
+                const colorCount = checkedColors.length;
+                
+                if (required && (colorCount < 2 || colorCount > 6)) {
                     isValid = false;
                     colorPicker.style.border = '2px solid #ff4d4d';
                     errorMessages.push(questionLabel.textContent.trim());
@@ -149,6 +113,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return isValid;
     }
+
+    // Обработчик отправки формы
+    document.getElementById('briefForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+
+        // Показываем анимацию загрузки
+        showLoadingAnimation();
+
+        // Собираем данные из формы
+        const formData = collectFormData();
+
+        // Генерируем PDF
+        const pdfDoc = generatePDF(formData);
+
+        // Извлекаем имя компании из поля "brand-name"
+        const brandNameInput = document.getElementById('brand-name');
+        const brandName = brandNameInput.value.trim();
+
+        // Отправляем PDF в Telegram с названием файла на основе имени компании
+        try {
+            await sendToTelegram(pdfDoc, brandName);
+            // Лоадер будет заполняться 5 секунд, после чего покажем уведомление
+            setTimeout(() => {
+                hideLoadingAnimation();
+                showSuccessNotification();
+            }, 5000); // 5 секунд
+        } catch (error) {
+            console.error('Ошибка отправки в Telegram:', error);
+            hideLoadingAnimation();
+            showErrorNotification('Xatolik yuz berdi, iltimos qayta urinib ko\'ring.');
+        }
+    });
 
     // Функция для сбора данных из формы
     function collectFormData() {
