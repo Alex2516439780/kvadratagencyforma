@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (colorPicker) {
                 const checkedColors = colorPicker.querySelectorAll('input[type="checkbox"]:checked');
                 const colorCount = checkedColors.length;
-                
+
                 if (required && (colorCount < 2 || colorCount > 6)) {
                     isValid = false;
                     colorPicker.style.border = '2px solid #ff4d4d';
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Показываем сообщение об ошибках
         if (!isValid) {
-            const errorMessage = errorMessages.length === 1 
+            const errorMessage = errorMessages.length === 1
                 ? `Iltimos, to'g'ri to'ldiring: ${errorMessages[0]}`
                 : `Iltimos, to'g'ri to'ldiring: ${errorMessages.join(', ')}`;
             showErrorNotification(errorMessage);
@@ -127,7 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = collectFormData();
 
         // Генерируем PDF
-        const pdfDoc = generatePDF(formData);
+        let pdfDoc;
+        try {
+            pdfDoc = generatePDF(formData);
+        } catch (error) {
+            console.error('Ошибка генерации PDF:', error);
+            hideLoadingAnimation();
+            showErrorNotification('PDF yaratishda xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.');
+            return;
+        }
 
         // Извлекаем имя компании из поля "brand-name"
         const brandNameInput = document.getElementById('brand-name');
@@ -199,23 +207,55 @@ document.addEventListener('DOMContentLoaded', () => {
         const docDefinition = {
             content: [
                 { text: 'Logotip yaratish bo\'yicha brif', style: 'header' },
+                { text: `Yaratilgan: ${new Date().toLocaleString('uz-UZ')}`, style: 'subheader' },
+                { text: '', margin: [0, 10, 0, 10] }, // Пустая строка
                 {
                     table: {
                         widths: ['50%', '50%'],
                         body: [
                             [{ text: 'Savol', style: 'tableHeader' }, { text: 'Javob', style: 'tableHeader' }],
-                            ...formData.map(item => [item.question, item.answer])
+                            ...formData.map(item => [
+                                { text: item.question, style: 'questionCell' },
+                                { text: item.answer, style: 'answerCell' }
+                            ])
                         ]
                     },
                     layout: 'lightHorizontalLines'
                 }
             ],
             styles: {
-                header: { fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-                tableHeader: { bold: true, fontSize: 11, fillColor: '#eeeeee' }
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 0, 0, 10],
+                    alignment: 'center'
+                },
+                subheader: {
+                    fontSize: 10,
+                    margin: [0, 0, 0, 5],
+                    alignment: 'center',
+                    color: '#666666'
+                },
+                tableHeader: {
+                    bold: true,
+                    fontSize: 12,
+                    fillColor: '#eeeeee',
+                    color: '#333333'
+                },
+                questionCell: {
+                    fontSize: 11,
+                    margin: [5, 3, 5, 3]
+                },
+                answerCell: {
+                    fontSize: 11,
+                    margin: [5, 3, 5, 3]
+                }
             },
             pageSize: 'A4',
-            pageMargins: [20, 20, 20, 20]
+            pageMargins: [30, 30, 30, 30],
+            defaultStyle: {
+                font: 'Roboto'
+            }
         };
 
         return pdfMake.createPdf(docDefinition);
@@ -224,28 +264,65 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для отправки в Telegram
     async function sendToTelegram(pdfDoc, brandName) {
         const botToken = '8164159617:AAGHUubSJbyxsOzIBbfcNOrQE5CsNnYD11o';
-        const chatId = '1142868244';
+        const chatIds = ['1142868244', '521500516']; // Массив с ID чатов
         const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
 
         // Очищаем имя компании от недопустимых символов и добавляем суффикс .pdf
         const sanitizedBrandName = brandName
-            .replace(/[^a-zA-Z0-9-_]/g, '_') // Заменяем недопустимые символы на подчеркивание
+            .replace(/[^a-zA-Z0-9а-яёА-ЯЁ\s-_]/g, '') // Убираем только опасные символы, оставляем кириллицу
+            .replace(/\s+/g, '_') // Заменяем пробелы на подчеркивания
             .replace(/_+/g, '_') // Убираем множественные подчеркивания
+            .replace(/^_|_$/g, '') // Убираем подчеркивания в начале и конце
             .trim(); // Убираем пробелы в начале и конце
-        const fileName = sanitizedBrandName ? `${sanitizedBrandName}_brief.pdf` : 'brief.pdf'; // Если имя пустое, используем значение по умолчанию
+
+        // Добавляем timestamp для уникальности файла
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        const fileName = sanitizedBrandName ? `${sanitizedBrandName}_brief_${timestamp}.pdf` : `brief_${timestamp}.pdf`;
 
         const blob = await new Promise(resolve => pdfDoc.getBlob(resolve));
-        const formData = new FormData();
-        formData.append('chat_id', chatId);
-        formData.append('document', blob, fileName);
 
-        const response = await fetch(url, {
-            method: 'POST',
-            body: formData
+        // Отправляем в каждый чат с улучшенной обработкой ошибок
+        const sendPromises = chatIds.map(async (chatId) => {
+            try {
+                const formData = new FormData();
+                formData.append('chat_id', chatId);
+                formData.append('document', blob, fileName);
+                formData.append('caption', `📄 Brif: ${brandName || 'Nomsiz'} - ${new Date().toLocaleString('uz-UZ')}`);
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(`Ошибка отправки в чат ${chatId}:`, errorText);
+                    throw new Error(`Ошибка отправки в Telegram для чата ${chatId}: ${response.status}`);
+                }
+
+                console.log(`PDF успешно отправлен в чат ${chatId}`);
+                return { chatId, success: true };
+            } catch (error) {
+                console.error(`Ошибка при отправке в чат ${chatId}:`, error);
+                return { chatId, success: false, error: error.message };
+            }
         });
 
-        if (!response.ok) {
-            throw new Error('Ошибка отправки в Telegram');
+        // Ждем отправки во все чаты
+        const results = await Promise.all(sendPromises);
+
+        // Проверяем результаты
+        const failedChats = results.filter(result => !result.success);
+        const successCount = results.filter(result => result.success).length;
+
+        console.log(`PDF отправлен в ${successCount} из ${chatIds.length} чатов`);
+
+        if (successCount === 0) {
+            throw new Error('Не удалось отправить PDF ни в один чат');
+        }
+
+        if (failedChats.length > 0) {
+            console.warn('Не удалось отправить в некоторые чаты:', failedChats);
         }
     }
 
