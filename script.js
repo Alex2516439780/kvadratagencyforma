@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Необязательно: можно прокинуть конкретные chat_ids через запятую, либо оставить дефолт на сервере
         // formData.append('chat_ids', '1142868244,521500516');
 
-        const response = await fetch('https://kvadratagencyformaa.vercel.app/api/send-telegram', {
+        const response = await fetch('https://kvadratagencyforma.vercel.app/api/send-telegram', {
             method: 'POST',
             body: formData
         });
