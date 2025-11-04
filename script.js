@@ -261,68 +261,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return pdfMake.createPdf(docDefinition);
     }
 
-    // Функция для отправки в Telegram
+    // Функция для отправки в Telegram через серверный эндпоинт
     async function sendToTelegram(pdfDoc, brandName) {
-        const botToken = '8164159617:AAGHUubSJbyxsOzIBbfcNOrQE5CsNnYD11o';
-        const chatIds = ['1142868244', '521500516']; // Массив с ID чатов
-        const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
-
         // Очищаем имя компании от недопустимых символов и добавляем суффикс .pdf
         const sanitizedBrandName = brandName
-            .replace(/[^a-zA-Z0-9а-яёА-ЯЁ\s-_]/g, '') // Убираем только опасные символы, оставляем кириллицу
-            .replace(/\s+/g, '_') // Заменяем пробелы на подчеркивания
-            .replace(/_+/g, '_') // Убираем множественные подчеркивания
-            .replace(/^_|_$/g, '') // Убираем подчеркивания в начале и конце
-            .trim(); // Убираем пробелы в начале и конце
+            .replace(/[^a-zA-Z0-9а-яёА-ЯЁ\s-_]/g, '')
+            .replace(/\s+/g, '_')
+            .replace(/_+/g, '_')
+            .replace(/^_|_$/g, '')
+            .trim();
 
-        // Добавляем timestamp для уникальности файла
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
         const fileName = sanitizedBrandName ? `${sanitizedBrandName}_brief_${timestamp}.pdf` : `brief_${timestamp}.pdf`;
 
         const blob = await new Promise(resolve => pdfDoc.getBlob(resolve));
 
-        // Отправляем в каждый чат с улучшенной обработкой ошибок
-        const sendPromises = chatIds.map(async (chatId) => {
-            try {
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('document', blob, fileName);
-                formData.append('caption', `📄 Brif: ${brandName || 'Nomsiz'} - ${new Date().toLocaleString('uz-UZ')}`);
+        const formData = new FormData();
+        formData.append('document', blob, fileName);
+        formData.append('filename', fileName);
+        formData.append('caption', `📄 Brif: ${brandName || 'Nomsiz'} - ${new Date().toLocaleString('uz-UZ')}`);
+        // Необязательно: можно прокинуть конкретные chat_ids через запятую, либо оставить дефолт на сервере
+        // formData.append('chat_ids', '1142868244,521500516');
 
-                const response = await fetch(url, {
-                    method: 'POST',
-                    body: formData
-                });
+        const response = await fetch('https://kvadratagencyformaa.vercel.app/api/send-telegram', {
+            method: 'POST',
+            body: formData
+          });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error(`Ошибка отправки в чат ${chatId}:`, errorText);
-                    throw new Error(`Ошибка отправки в Telegram для чата ${chatId}: ${response.status}`);
-                }
-
-                console.log(`PDF успешно отправлен в чат ${chatId}`);
-                return { chatId, success: true };
-            } catch (error) {
-                console.error(`Ошибка при отправке в чат ${chatId}:`, error);
-                return { chatId, success: false, error: error.message };
-            }
-        });
-
-        // Ждем отправки во все чаты
-        const results = await Promise.all(sendPromises);
-
-        // Проверяем результаты
-        const failedChats = results.filter(result => !result.success);
-        const successCount = results.filter(result => result.success).length;
-
-        console.log(`PDF отправлен в ${successCount} из ${chatIds.length} чатов`);
-
-        if (successCount === 0) {
-            throw new Error('Не удалось отправить PDF ни в один чат');
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Server error: ${errorText}`);
         }
 
-        if (failedChats.length > 0) {
-            console.warn('Не удалось отправить в некоторые чаты:', failedChats);
+        const data = await response.json();
+        if (!data.ok) {
+            throw new Error(data.error || 'Unknown server error');
         }
     }
 
