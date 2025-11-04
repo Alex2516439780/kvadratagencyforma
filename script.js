@@ -286,15 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('https://kvadratagencyforma.vercel.app/api/send-telegram', {
             method: 'POST',
             body: formData
-        });
-
-        const resultText = await response.text();
-        console.log('Server Response:', resultText);
-
-        if (!response.ok) {
-            throw new Error(`Server error: ${resultText}`);
-        }
-
+          });
 
         if (!response.ok) {
             const errorText = await response.text();
