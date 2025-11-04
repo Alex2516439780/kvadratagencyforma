@@ -1,17 +1,29 @@
-export default async function handler(req, res) {
+export const config = { runtime: 'edge' };
+
+const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+export default async function handler(req) {
     try {
+        if (req.method === 'OPTIONS') {
+            return new Response(null, { status: 204, headers: corsHeaders });
+        }
+
         if (req.method !== 'POST') {
-            res.status(405).end();
-            return;
+            return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
         }
 
         const botToken = process.env.TELEGRAM_BOT_TOKEN;
         if (!botToken) {
-            res.status(500).json({ ok: false, error: 'Missing TELEGRAM_BOT_TOKEN' });
-            return;
+            return new Response(JSON.stringify({ ok: false, error: 'Missing TELEGRAM_BOT_TOKEN' }), {
+                status: 500,
+                headers: { 'content-type': 'application/json', ...corsHeaders }
+            });
         }
 
-        // Разрешаем multipart/form-data
         const form = await req.formData();
         const file = form.get('document');
         const caption = form.get('caption') || '';
@@ -19,15 +31,15 @@ export default async function handler(req, res) {
         const chatIdsRaw = form.get('chat_ids');
 
         const defaultChatIds = ['1142868244', '521500516'];
-        const chatIds = Array.isArray(chatIdsRaw)
-            ? chatIdsRaw
-            : (typeof chatIdsRaw === 'string' && chatIdsRaw.trim().length > 0
-                ? chatIdsRaw.split(',').map(s => s.trim())
-                : defaultChatIds);
+        const chatIds = typeof chatIdsRaw === 'string' && chatIdsRaw.trim().length > 0
+            ? chatIdsRaw.split(',').map(s => s.trim())
+            : defaultChatIds;
 
         if (!file) {
-            res.status(400).json({ ok: false, error: 'No document provided' });
-            return;
+            return new Response(JSON.stringify({ ok: false, error: 'No document provided' }), {
+                status: 400,
+                headers: { 'content-type': 'application/json', ...corsHeaders }
+            });
         }
 
         const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
@@ -46,9 +58,15 @@ export default async function handler(req, res) {
             return { chatId, ok: true };
         }));
 
-        res.status(200).json({ ok: true, sent: results.length, results });
+        return new Response(JSON.stringify({ ok: true, sent: results.length, results }), {
+            status: 200,
+            headers: { 'content-type': 'application/json', ...corsHeaders }
+        });
     } catch (e) {
-        res.status(500).json({ ok: false, error: String(e) });
+        return new Response(JSON.stringify({ ok: false, error: String(e) }), {
+            status: 500,
+            headers: { 'content-type': 'application/json', ...corsHeaders }
+        });
     }
 }
 
